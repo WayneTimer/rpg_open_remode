@@ -139,6 +139,17 @@ target_link_libraries(
   dataset_publisher
   ${LINK_LIBS}
 )
+
+# Timer: Build a node to publish the VINS
+add_executable(
+  vins_publisher
+  test/VINS_data/publish_vins2svo_msg.cpp
+)
+target_link_libraries(
+  vins_publisher
+  ${LINK_LIBS}
+)
+
 endif(BUILD_ROS_NODE)
 
 ## Test on dataset

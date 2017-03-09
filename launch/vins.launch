@@ -1,0 +1,29 @@
+<launch>
+  <node pkg="rpg_open_remode" type="depthmap_node" name="remode" clear_params="true" output="screen">
+    <param name="cam_width" value="320" />
+    <param name="cam_height" value="184" />
+    <param name="cam_fx" value="160.0" />
+    <param name="cam_cx" value="160.0" />
+    <param name="cam_fy" value="160.0" />
+    <param name="cam_cy" value="92.0" />
+    <param name="ref_compl_perc" value="10.0" />
+    <param name="publish_conv_every_n" value="2" />
+  </node>   
+
+  <node pkg="rpg_open_remode" type="vins_publisher" name="vins_publisher" clear_params="true" output="screen">
+    <param name="min_depth" type="double" value="0.1" />
+    <param name="max_depth" type="double" value="12.0" />
+    <param name="image_topic" type="string" value="/imgL" />
+    <param name="pose_topic" type="string" value="/self_calibration_estimator/cur_pose" />
+
+    <!-- cropper image rotation:  R_{center}^{cropped} -->
+    <param name="cropped_quat_w" type="double" value="0.951056516295" />
+    <param name="cropped_quat_x" type="double" value="0.0" />
+    <param name="cropped_quat_y" type="double" value="0.309016994375" />
+    <param name="cropped_quat_z" type="double" value="0.0" />
+
+    <!-- a path for result output -->
+    <param name="result_path" type="string" value="/home/timer/temp/rmd_result" />
+
+  </node>
+</launch>

@@ -125,6 +125,9 @@ void rmd::DepthmapNode::denseInputCallback(
   switch (state_) {
   case rmd::State::TAKE_REFERENCE_FRAME:
   {
+    stamp = dense_input->header.stamp;
+    ROS_WARN("Set Reference frame stamp: %lf", stamp.toSec());
+
     if(depthmap_->setReferenceImage(
          img_8uC1,
          T_world_curr.inv(),
@@ -147,8 +150,10 @@ void rmd::DepthmapNode::denseInputCallback(
     std::cout << "INFO: percentage of converged measurements: " << perc_conv << "%" << std::endl;
     if(perc_conv > ref_compl_perc_ || dist_from_ref > max_dist_from_ref_)
     {
+      ROS_WARN("Publish stamp: %lf", stamp.toSec());
+
       state_ = State::TAKE_REFERENCE_FRAME;
-      denoiseAndPublishResults();
+      denoiseAndPublishResults(stamp);
     }
     break;
   }
@@ -162,14 +167,15 @@ void rmd::DepthmapNode::denseInputCallback(
   }
 }
 
-void rmd::DepthmapNode::denoiseAndPublishResults()
+void rmd::DepthmapNode::denoiseAndPublishResults(ros::Time ts)
 {
   depthmap_->downloadDenoisedDepthmap(0.5f, 200);
   depthmap_->downloadConvergenceMap();
 
   std::async(std::launch::async,
              &rmd::Publisher::publishDepthmapAndPointCloud,
-             *publisher_);
+             *publisher_,
+             ts);
 }
 
 void rmd::DepthmapNode::publishConvergenceMap()

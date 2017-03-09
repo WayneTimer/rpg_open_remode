@@ -37,7 +37,7 @@ rmd::Publisher::Publisher(ros::NodeHandle &nh,
   pub_pc_ = nh_.advertise<PointCloud>("remode/pointcloud", 1);
 }
 
-void rmd::Publisher::publishDepthmap() const
+void rmd::Publisher::publishDepthmap(ros::Time ts) const
 {
   cv_bridge::CvImage cv_image;
   cv_image.header.frame_id = "depthmap";
@@ -45,7 +45,25 @@ void rmd::Publisher::publishDepthmap() const
   cv_image.image = depthmap_->getDepthmap();
   if(nh_.ok())
   {
-    cv_image.header.stamp = ros::Time::now();
+    //cv_image.header.stamp = ros::Time::now();
+    /*
+    // only publish pixel with enough convergence
+    const cv::Mat convergence = depthmap_->getConvergenceMap();
+    for(int y=0; y<cv_image.image.rows; ++y)
+    {
+      for(int x=0; x<cv_image.image.cols; ++x)
+      {
+        if( rmd::ConvergenceState::CONVERGED != convergence.at<int>(y, x) )
+        {
+          cv_image.image.at<float>(y,x) = 0.0f;
+        }
+      }
+    }
+    // ------------------------
+    */
+
+    cv_image.header.stamp = ts; //ros::Time::now();
+
     depthmap_publisher_.publish(cv_image.toImageMsg());
     std::cout << "INFO: publishing depth map" << std::endl;
   }
@@ -103,9 +121,9 @@ void rmd::Publisher::publishPointCloud() const
   }
 }
 
-void rmd::Publisher::publishDepthmapAndPointCloud() const
+void rmd::Publisher::publishDepthmapAndPointCloud(ros::Time ts) const
 {
-  publishDepthmap();
+  publishDepthmap(ts);
   publishPointCloud();
 }
 

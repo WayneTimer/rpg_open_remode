@@ -46,7 +46,7 @@ public:
   void denseInputCallback(
       const svo_msgs::DenseInputConstPtr &dense_input);
 private:
-  void denoiseAndPublishResults();
+  void denoiseAndPublishResults(ros::Time ts);
   void publishConvergenceMap();
 
   std::shared_ptr<rmd::Depthmap> depthmap_;
@@ -58,6 +58,8 @@ private:
 
   ros::NodeHandle &nh_;
   std::unique_ptr<rmd::Publisher> publisher_;
+
+  ros::Time stamp;
 };
 
 } // rmd namespace

@@ -40,11 +40,11 @@ public:
   Publisher(ros::NodeHandle &nh,
             std::shared_ptr<rmd::Depthmap> depthmap);
 
-  void publishDepthmap() const;
+  void publishDepthmap(ros::Time ts) const;
 
   void publishPointCloud() const;
 
-  void publishDepthmapAndPointCloud() const;
+  void publishDepthmapAndPointCloud(ros::Time ts) const;
 
   void publishConvergenceMap();
 
