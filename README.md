@@ -3,10 +3,10 @@ REMODE
 #### Timer modification: A version for comparing mapping results using VINS state estimation
 
 Usage:
-> __1__. git clone https://github.com/uzh-rpg/rpg_vikit.git
-> __2__. git clone https://github.com/uzh-rpg/rpg_svo.git -> /svo_msgs
-> __3__. config the .launch (__vins.launch__ is an example)
-> __4__. roslaunch __.launch + estimation + image_cropper (if any)__
+> __1__. git clone https://github.com/uzh-rpg/rpg_vikit.git  
+> __2__. git clone https://github.com/uzh-rpg/rpg_svo.git -> /svo_msgs  
+> __3__. config the .launch (__vins.launch__ is an example)  
+> __4__. roslaunch __.launch + estimation + image_cropper (if any)__  
 
 ===
 
