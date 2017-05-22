@@ -169,8 +169,7 @@ void rmd::DepthmapNode::denseInputCallback(
 
 void rmd::DepthmapNode::denoiseAndPublishResults(ros::Time ts)
 {
-  //depthmap_->downloadDenoisedDepthmap(0.5f, 200);
-  depthmap_->downloadDenoisedDepthmap(0.3f, 200);
+  depthmap_->downloadDenoisedDepthmap(0.5f, 200);
   depthmap_->downloadConvergenceMap();
 
   std::async(std::launch::async,
