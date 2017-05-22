@@ -15,6 +15,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#define BACKWARD_HAS_DW 1
+#include <backward.hpp>
+namespace backward
+{
+backward::SignalHandling sh;
+} // namespace backward
+
 #include <ros/ros.h>
 #include <rmd/check_cuda_device.cuh>
 #include <rmd/depthmap_node.h>

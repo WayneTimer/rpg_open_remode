@@ -16,6 +16,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#define BACKWARD_HAS_DW 1
+#include <backward.hpp>
+namespace backward
+{
+backward::SignalHandling sh;
+} // namespace backward
+
 #include <string>
 #include <Eigen/Dense>
 #include <ros/ros.h>
@@ -41,7 +48,7 @@ void vins_callback(const sensor_msgs::ImageConstPtr& img_msg, const geometry_msg
     msg.header.stamp = img_msg->header.stamp;
     msg.header.frame_id = "/dense_input_frame_id";
 
-    cv_bridge::CvImagePtr img_ptr = cv_bridge::toCvCopy(img_msg, sensor_msgs::image_encodings::TYPE_8UC1);
+    cv_bridge::CvImagePtr img_ptr = cv_bridge::toCvCopy(img_msg, sensor_msgs::image_encodings::MONO8);
     cv_bridge::CvImage cv_image;
     cv_image.header.stamp = img_msg->header.stamp;
     cv_image.header.frame_id = "/greyscale_image_frame_id";

@@ -53,6 +53,7 @@ ADD_DEFINITIONS(-DRMD_CORR_PATCH_SIDE=5)
 ADD_DEFINITIONS(-DRMD_MAX_EXTENT_EPIPOLAR_SEARCH=100)
 
 find_package(OpenCV REQUIRED)
+message("OpenCV_VERSION: ${OpenCV_VERSION}")
 find_package(Eigen REQUIRED)
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 
@@ -128,6 +129,7 @@ target_link_libraries(
   depthmap_node
   rpg_open_remode
   rpg_open_remode_cuda
+  dw
 )
 # Build a node to publish the dataset
 add_executable(
@@ -148,6 +150,7 @@ add_executable(
 target_link_libraries(
   vins_publisher
   ${LINK_LIBS}
+  dw
 )
 
 endif(BUILD_ROS_NODE)
