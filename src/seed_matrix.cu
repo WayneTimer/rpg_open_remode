@@ -99,7 +99,7 @@ bool rmd::SeedMatrix::setReferenceImage(
   dev_data_.scene.depth_range  = max_depth - min_depth;
   dev_data_.scene.sigma_sq_max = dev_data_.scene.depth_range * dev_data_.scene.depth_range / 36.0f;
   // Algorithm parameters
-  dev_data_.eta_inlier  = 0.7f;
+  dev_data_.eta_inlier  = 0.6f; //0.7f;
   dev_data_.eta_outlier = 0.05f;
   dev_data_.epsilon     = dev_data_.scene.depth_range / 1000.0f;
   // Copy data to device memory

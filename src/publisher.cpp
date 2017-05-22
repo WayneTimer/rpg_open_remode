@@ -62,6 +62,25 @@ void rmd::Publisher::publishDepthmap(ros::Time ts) const
     // ------------------------
     */
 
+    // --- Unify depth from Euclidean distance expression to z-axis expression ---
+    cv::Mat &depth = cv_image.image;
+
+    const float fx = depthmap_->getFx();
+    const float fy = depthmap_->getFy();
+    const float cx = depthmap_->getCx();
+    const float cy = depthmap_->getCy();
+
+    for(int y=0; y<depth.rows; ++y)
+    {
+      for(int x=0; x<depth.cols; ++x)
+      {
+        const float3 f = normalize( make_float3((x-cx)/fx, (y-cy)/fy, 1.0f) );
+        const float3 xyz = f * depth.at<float>(y, x);
+        depth.at<float>(y, x) = xyz.z;
+      }
+    }
+    // -----------
+
     cv_image.header.stamp = ts; //ros::Time::now();
 
     depthmap_publisher_.publish(cv_image.toImageMsg());

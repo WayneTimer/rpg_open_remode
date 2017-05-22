@@ -8,12 +8,12 @@
     <param name="cam_cy" value="239.5" />
     <param name="ref_compl_perc" value="10.0" />
     <param name="publish_conv_every_n" value="2" />
-    <param name="max_dist_from_ref" value="3" />
+    <param name="max_dist_from_ref" value="0.5" />
   </node>   
 
   <node pkg="rpg_open_remode" type="vins_publisher" name="vins_publisher" clear_params="true" output="screen">
-    <param name="min_depth" type="double" value="1.0" />
-    <param name="max_depth" type="double" value="500.0" />
+    <param name="min_depth" type="double" value="0.1" />
+    <param name="max_depth" type="double" value="8.0" />
     <param name="image_topic" type="string" value="/VaFRIC_warpper/image" />
     <param name="pose_topic" type="string" value="/VaFRIC_warpper/cur_pose" />
 
